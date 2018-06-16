@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { FactorService, QuestionOneAnswers } from './factor.service';
 
 @Component({
   template: `
@@ -9,17 +10,17 @@ import { FormBuilder, FormGroup } from '@angular/forms';
       <div>
         <label>
           Answer 1
-          <input type="radio" value="Answer1" formControlName="questionOneAnswer">
+          <input type="radio" [value]="answers.Answer1" formControlName="questionOneAnswer">
         </label>
 
         <label>
           Answer 2
-          <input type="radio" value="Answer2" formControlName="questionOneAnswer">
+          <input type="radio" [value]="answers.Answer2" formControlName="questionOneAnswer">
         </label>
 
         <label>
           Answer 3
-          <input type="radio" value="Answer3" formControlName="questionOneAnswer">
+          <input type="radio" [value]="answers.Answer3" formControlName="questionOneAnswer">
         </label>
       </div>
     </form>
@@ -27,14 +28,18 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class PageOneComponent {
   questionOneForm: FormGroup;
+  readonly answers = QuestionOneAnswers;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private factorService: FactorService,
+  ) {
     this.questionOneForm = this.fb.group({
       questionOneAnswer: [''],
     });
 
     this.questionOneForm.valueChanges.subscribe((value) => {
-      console.log(value);
+      this.factorService.answer('questionOne', value.questionOneAnswer);
     });
   }
 }

@@ -4,11 +4,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PageOneComponent } from './pages/PageOne';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PageTwoComponent } from './pages/PageTwo';
+import { PageThreeComponent } from './pages/PageThree';
+import { FactorService } from './pages/factor.service';
+import { NavigationService } from './pages/navigation.service';
 
 const routes: Routes = [
   {
     path: '',
     component: PageOneComponent,
+  },
+  {
+    path: 'page-2',
+    component: PageTwoComponent,
+  },
+  {
+    path: 'page-3',
+    component: PageThreeComponent,
   },
 ];
 
@@ -17,13 +29,18 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     PageOneComponent,
+    PageTwoComponent,
+    PageThreeComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    FactorService,
+    NavigationService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
